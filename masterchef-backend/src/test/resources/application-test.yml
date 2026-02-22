@@ -1,0 +1,38 @@
+# ── Test profile configuration ───────────────────────────────────────────────
+# Applied when @ActiveProfiles("test") is present.
+# The datasource URL/credentials are overridden at runtime by AbstractRepositoryTest
+# via @DynamicPropertySource (Testcontainers), so the values here are placeholders.
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/masterchef_test
+    username: test
+    password: test
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+# Minimal JWT config so JwtTokenProvider can be constructed if the context needs it
+jwt:
+  secret: dGVzdC1zZWNyZXQta2V5LWZvci11bml0LXRlc3RzLW9ubHktbm90LWZvci1wcm9kdWN0aW9u
+  access-token-expiration-ms: 900000
+  refresh-token-expiration-ms: 604800000
+
+# Silence AWS / LocalStack config — not needed for repository tests
+cloud:
+  aws:
+    credentials:
+      access-key: test
+      secret-key: test
+    region:
+      static: us-east-1

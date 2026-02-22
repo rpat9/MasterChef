@@ -287,28 +287,41 @@ masterchef-backend/
 http://localhost:8080/api/v1
 ```
 
-### Currently Implemented Endpoints
+### Endpoints
 
-#### Authentication
+#### Authentication — `/api/v1/auth`
 
-| Method | Endpoint               | Description                  | Auth Required |
-|--------|------------------------|------------------------------|---------------|
-| POST   | `/auth/register`       | Register new user            | No            |
-| POST   | `/auth/login`          | Login and get JWT            | No            |
-| POST   | `/auth/refresh`        | Refresh access token         | Yes (Refresh) |
+| Method | Endpoint               | Description                         | Auth Required |
+|--------|------------------------|-------------------------------------|---------------|
+| POST   | `/auth/register`       | Register a new user                 | No            |
+| POST   | `/auth/login`          | Login and receive JWT tokens        | No            |
+| POST   | `/auth/refresh`        | Exchange refresh token for new access token | No   |
 
-#### Recipe Generation
+#### Recipes — `/api/v1/recipes`
 
-| Method | Endpoint                 | Description                       | Auth Required |
-|--------|--------------------------|-----------------------------------|---------------|
-| POST   | `/recipes/generate`      | Generate recipe from ingredients  | Yes           |
+| Method | Endpoint                  | Description                                          | Auth Required |
+|--------|---------------------------|------------------------------------------------------|---------------|
+| POST   | `/recipes/generate`       | Generate a recipe from a list of ingredients         | Yes           |
+| GET    | `/recipes`                | Get all saved recipes for the authenticated user (paginated) | Yes  |
+| GET    | `/recipes/{id}`           | Get a specific recipe by ID                          | Yes           |
+| DELETE | `/recipes/{id}`           | Delete a recipe and its S3 exports                   | Yes           |
+| POST   | `/recipes/{id}/export`    | Export a recipe to S3 and get a presigned download URL | Yes         |
+| GET    | `/recipes/history`        | Get LLM generation history for the authenticated user (paginated) | Yes |
+| GET    | `/recipes/metrics`        | Get personal usage metrics (generations, cache hits, token totals) | Yes |
+
+#### Admin — `/api/v1/admin`
+
+| Method | Endpoint                  | Description                                | Auth Required |
+|--------|---------------------------|--------------------------------------------|---------------|
+| GET    | `/admin/cache/stats`      | Get LLM cache statistics (hit rate, totals) | Yes (Admin)  |
+| DELETE | `/admin/cache`            | Delete all expired LLM cache entries       | Yes (Admin)   |
 
 #### Health & Monitoring
 
-| Method | Endpoint                 | Description                  | Auth Required |
-|--------|--------------------------|------------------------------|---------------|
-| GET    | `/actuator/health`       | Application health status    | No            |
-| GET    | `/actuator/info`         | Application information      | No            |
+| Method | Endpoint            | Description               | Auth Required |
+|--------|---------------------|---------------------------|---------------|
+| GET    | `/actuator/health`  | Application health status | No            |
+| GET    | `/actuator/info`    | Application information   | No            |
 
 ### Example: Register User
 
