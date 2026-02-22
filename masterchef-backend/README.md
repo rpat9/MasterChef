@@ -26,7 +26,7 @@
 
 ## 🎯 Overview
 
-MasterChef Backend is a **Spring Boot REST API** that generates AI-powered recipes using local LLM inference (Ollama/Mistral 7B), with JWT authentication and PostgreSQL persistence. Built with production-grade patterns while maintaining zero cloud costs during development.
+MasterChef Backend is a **Spring Boot REST API** that generates AI-powered recipes using local LLM inference (Ollama/Mistral 7B), with JWT authentication and PostgreSQL persistence.
 
 ### What's Working Now
 
@@ -51,8 +51,8 @@ MasterChef Backend is a **Spring Boot REST API** that generates AI-powered recip
 ### Design Philosophy
 
 1. **Production Patterns** - Enterprise-grade security, database migrations, structured logging, and audit trails
-2. **Zero-Cost AI** - Local LLM inference with Ollama eliminates API costs while maintaining quality
-3. **Cloud-Ready** - Designed for AWS deployment but runs entirely locally during development
+2. **Cost-Aware AI** - Local LLM inference with Ollama eliminates per-request API costs
+3. **Cloud-Ready** - Designed for AWS ECS deployment with Terraform IaC
 4. **Simple First** - Core functionality built solidly before adding complexity like caching and resilience patterns
 
 ### Current Focus
@@ -62,14 +62,6 @@ The system prioritizes **core functionality done right**:
 - Real AI recipe generation with structured output
 - Complete audit trail for debugging and metrics
 - Reproducible local environment with Docker
-
-### Why Not Deployed?
-
-This system is **deployment-ready** for AWS (designed for ECS, RDS, and S3). The architecture supports production deployment to any cloud provider. 
-
-**The maintainer chooses not to deploy to avoid recurring costs** (~$50-100/month for minimal traffic). This demonstrates production-ready engineering practices while maintaining zero operational expenses.
-
-**Translation**: *"I know how to deploy to production. I'm choosing not to pay for it."*
 
 ---
 
@@ -397,7 +389,7 @@ curl -X POST http://localhost:8080/api/v1/recipes/generate \
 
 ---
 
-## ☁️ AWS Deployment (Planned)
+## ☁️ AWS Deployment
 
 ### Target Architecture
 
@@ -420,8 +412,6 @@ The system is designed for **AWS ECS (Fargate)** deployment with:
 | S3               | <1 GB storage    | ~$1                     |
 | CloudWatch       | Logs + metrics   | ~$5                     |
 | **Total**        |                  | **~$56/month**          |
-
-*Note: This is deployment-ready infrastructure that anyone can deploy to their own AWS account. The maintainer chooses not to deploy to avoid recurring costs, demonstrating zero-cost local development while maintaining production-ready code quality.*
 
 ---
 
@@ -603,7 +593,7 @@ These are configured in `application.yml`.
 
 ## 🤝 Contributing
 
-This is a personal learning project showcasing production-ready engineering practices. Feedback and suggestions are welcome!
+Feedback and suggestions are welcome!
 
 ---
 
@@ -613,6 +603,4 @@ This project is licensed under the MIT License - see the [LICENSE](../LICENSE) f
 
 ---
 
-**Built with ❤️ using Java 21, Spring Boot, and PostgreSQL**
-
-*Designed for production. Runs locally for free.*
+**Built with Java 21, Spring Boot, and PostgreSQL**

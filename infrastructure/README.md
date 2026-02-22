@@ -10,9 +10,7 @@
 
 ## 📋 Overview
 
-This directory contains production-ready Terraform modules for deploying MasterChef backend to AWS. The infrastructure demonstrates enterprise-grade cloud architecture patterns including multi-AZ deployment, auto-scaling, security best practices, and comprehensive monitoring.
-
-**🎓 Learning Note:** The Terraform infrastructure architecture and modules were designed with significant assistance from Claude (Anthropic's AI assistant). This collaboration enabled rapid development of production-grade IaC while learning Terraform patterns and AWS best practices.
+This directory contains production-ready Terraform modules for deploying MasterChef backend to AWS. The infrastructure uses multi-AZ deployment, auto-scaling, security best practices, and comprehensive monitoring.
 
 ---
 
@@ -116,7 +114,7 @@ infrastructure/
 - AWS CLI configured with credentials
 - Docker (for building/pushing images)
 
-### 1. Review Infrastructure (Zero Cost)
+### 1. Review Infrastructure
 
 ```bash
 cd terraform/environments/dev
@@ -129,20 +127,17 @@ terraform plan
 ```
 
 **This shows all resources WITHOUT creating them.** Perfect for:
-- Resume demonstrations
 - Architecture reviews
-- Interview discussions
-- Learning Terraform
+- Validating module configuration
+- Pre-deployment verification
 
-### 2. (Optional) Deploy to AWS
-
-**⚠️ WARNING: This will incur AWS costs!**
+### 2. Deploy to AWS
 
 ```bash
 # Review plan
 terraform plan -out=plan.tfplan
 
-# Deploy (only if you want to spend money)
+# Deploy
 terraform apply plan.tfplan
 ```
 
@@ -286,9 +281,9 @@ Deploys containerized application with auto-scaling and load balancing.
 
 ---
 
-## 🎯 Key Features for Resume
+## 🎯 Key Infrastructure Features
 
-This infrastructure demonstrates:
+This infrastructure includes:
 
 ✅ **Multi-AZ High Availability** - Resources deployed across 2+ availability zones  
 ✅ **Auto-Scaling** - ECS tasks scale based on CPU/memory metrics  
@@ -448,9 +443,9 @@ aws ecs update-service --cluster <cluster> --service <service> --task-definition
 
 ---
 
-## 🎓 Learning Resources
+## 📚 Reference
 
-### Terraform Concepts Demonstrated
+### Terraform Concepts Used
 
 - **Modules** - Reusable infrastructure components
 - **Variables** - Parameterized configurations
@@ -475,13 +470,7 @@ aws ecs update-service --cluster <cluster> --service <service> --task-definition
 
 ## 🤝 Acknowledgments
 
-**Infrastructure Design:** This Terraform infrastructure was designed with significant assistance from Claude (Anthropic). The AI collaboration enabled:
-- Rapid development of production-grade IaC patterns
-- Best practices for AWS security and networking
-- Modular, maintainable Terraform structure
-- Comprehensive documentation and examples
-
-This project demonstrates the power of AI-assisted development while maintaining full understanding and ownership of the infrastructure code.
+Infrastructure architecture designed with assistance from Claude (Anthropic).
 
 ---
 

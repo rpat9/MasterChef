@@ -27,7 +27,7 @@
 
 MasterChef Backend is a **production-grade, AI-augmented recipe generation service** with JWT authentication and cost-aware LLM orchestration. Users register, authenticate, and submit ingredients via a REST API. The system orchestrates a local Large Language Model (Ollama / Mistral 7B) to return structured recipes — while caching duplicate requests, enforcing rate limits, tracking token costs, and recording generation metrics.
 
-The system is designed for **AWS ECS deployment** but runs entirely locally using Docker Compose + LocalStack, proving cloud engineering competency at zero cost.
+The system is designed for **AWS ECS deployment** and runs locally using Docker Compose + LocalStack.
 
 ### Key Design Principles
 
@@ -213,7 +213,7 @@ The system is designed for **AWS ECS deployment** but runs entirely locally usin
 - Latest stable release with full Java 21 support
 - Mature ecosystem: JPA, Actuator, Validation, Web MVC
 - Opinionated defaults reduce configuration
-- Industry standard — immediate familiarity for interviewers
+- Industry standard with mature ecosystem
 
 ### Why PostgreSQL over H2/SQLite?
 
@@ -224,11 +224,10 @@ The system is designed for **AWS ECS deployment** but runs entirely locally usin
 
 ### Why Ollama (Local LLM) over OpenAI/Anthropic API?
 
-- **Zero cost** — no API keys, no billing, no rate limits from provider. ALSO I AM NOT SPENDING MONEY LIKE THAT!
-- Demonstrates the **abstraction pattern** — `LlmClient` interface means
-  swapping to OpenAI is a single implementation class
+- **Zero per-request cost** — no API keys, no billing, no rate limits from provider
+- `LlmClient` interface means swapping to OpenAI is a single implementation class
 - Reproducible — runs identically on any machine with Docker
-- Privacy — no data leaves the developer's machine
+- Privacy — no data leaves the host machine
 
 ### Why Flyway?
 
@@ -245,11 +244,10 @@ The system is designed for **AWS ECS deployment** but runs entirely locally usin
 
 ### Why LocalStack over Real AWS?
 
-- **Zero cost** — no AWS account needed, no accidental charges. PLUS I AM NOT SPENDING MONEY!
-- Emulates S3, CloudWatch Logs, Secrets Manager
-- Proves AWS SDK v2 competency identically to real services
-- Terraform definitions validate against real provider, deploy to LocalStack
-- Essentially: *"Designed for AWS ECS, exercised via LocalStack"*
+- Emulates S3, CloudWatch Logs, Secrets Manager locally
+- AWS SDK v2 code is identical whether targeting LocalStack or real AWS
+- Terraform definitions validate against the real provider
+- Enables full integration testing without cloud credentials
 
 ---
 
@@ -500,7 +498,7 @@ Every log line includes MDC context:
               └─────────────────────┘
 ```
 
-### Production Target (AWS — via Terraform, not deployed)
+### Production Target (AWS — via Terraform)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -553,22 +551,22 @@ The system implements production-grade security practices:
 
 ### ADR-001: Use Local LLM Instead of Cloud API
 - **Status**: Accepted
-- **Context**: Cloud LLM APIs (OpenAI, Anthropic) cost money and require API keys. If you get one, awesome!
+- **Context**: Cloud LLM APIs (OpenAI, Anthropic) incur per-request costs and require API keys
 - **Decision**: Use Ollama with Mistral 7B locally, behind an interface
-- **Consequence**: Slightly lower output quality; zero cost; fully reproducible
+- **Consequence**: Slightly lower output quality; zero per-request cost; fully reproducible
 
 ### ADR-002: PostgreSQL Cache Instead of Redis
 - **Status**: Accepted  
-- **Context**: Redis would add another infrastructure dependency. You guessed it, more potential cost!
+- **Context**: Redis would add another infrastructure dependency
 - **Decision**: Use a `llm_cache` table in PostgreSQL with TTL-based expiry
 - **Consequence**: Slightly slower cache reads; one fewer container to manage; simpler local setup
 
 ### ADR-003: JWT Authentication (Updated v2.0)
 - **Status**: Accepted (Scope expanded from v1.0)
-- **Context**: Authentication demonstrates production-ready security patterns and is required for user-specific features (saved recipes, preferences)
+- **Context**: Authentication is required for user-specific features (saved recipes, preferences) and secure API access
 - **Decision**: Implement JWT-based authentication with Spring Security
   - Access tokens: 15-minute expiration
   - Refresh tokens: 7-day expiration
   - BCrypt password hashing (cost factor 12)
   - Stateless authentication (no server-side sessions)
-- **Consequence**: Adds security layer complexity but demonstrates enterprise patterns; enables user-scoped features; proves Spring Security competency
+- **Consequence**: Adds security layer complexity; enables user-scoped features

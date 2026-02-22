@@ -360,8 +360,8 @@ When contributing to this project:
 
 ## 📄 License
 
-This project is being upgraded significantly from its previous state and updates are still ongoing.
+This project is licensed under the MIT License.
 
 ---
 
-**Built with ❤️ using React, TypeScript, and Vite**
+**Built with React, TypeScript, and Vite**

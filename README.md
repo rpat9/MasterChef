@@ -12,7 +12,7 @@
 
 ## 📋 Overview
 
-MasterChef is a full-stack application that generates AI-powered recipes using local LLM inference. The system demonstrates production-grade backend engineering with zero-cost development while remaining cloud-deployment ready.
+MasterChef is a full-stack application that generates AI-powered recipes using local LLM inference with JWT authentication, PostgreSQL persistence, and AWS-native infrastructure.
 
 ### Key Features
 
@@ -150,24 +150,17 @@ npm run dev
 
 ---
 
-## ☁️ AWS Deployment (Optional)
+## ☁️ AWS Deployment
 
 The project includes production-ready Terraform infrastructure. See [`infrastructure/README.md`](infrastructure/README.md) for detailed deployment instructions.
 
-**⚠️ Warning:** AWS deployment will incur costs (~$55/month for minimal setup).
-
-**Quick Preview (Zero Cost):**
+**Quick Preview:**
 
 ```bash
 cd infrastructure/terraform/environments/dev
 terraform init
 terraform plan  # Shows what would be deployed (no actual changes)
 ```
-
-This is perfect for:
-- Resume demonstrations
-- Architecture reviews
-- Learning Terraform patterns
 
 ---
 
@@ -182,24 +175,12 @@ This is perfect for:
 
 ## 🎯 Design Philosophy
 
-### Zero-Cost Production Patterns
-
-This project demonstrates production-grade engineering **without requiring cloud deployment**:
+### Architecture Principles
 
 1. **Local Development First** - Complete feature parity with Docker Compose
-2. **Cloud-Ready Architecture** - Terraform infrastructure ready to deploy
+2. **Cloud-Ready Architecture** - Terraform infrastructure targeting AWS ECS, RDS, and S3
 3. **Enterprise Patterns** - Security, observability, resilience built-in
-4. **Resume-Worthy** - Showcases real-world backend engineering skills
-
-### Why Not Deployed?
-
-The system is **deployment-ready** but the maintainer chooses not to deploy to avoid recurring AWS costs (~$50-100/month). This demonstrates:
-- Production readiness without production costs
-- Infrastructure-as-Code mastery
-- Cloud architecture knowledge
-- Cost-conscious engineering
-
-**Translation:** *"I know how to deploy to production. I'm choosing not to pay for it."*
+4. **Cost-Aware LLM** - Local inference with Ollama eliminates per-request API costs
 
 ---
 
@@ -226,7 +207,7 @@ The system is **deployment-ready** but the maintainer chooses not to deploy to a
 
 ## 🤝 Contributing
 
-This is a personal project demonstrating backend engineering skills. Not currently accepting contributions.
+Feedback and suggestions are welcome.
 
 ---
 
@@ -238,6 +219,4 @@ This is a personal project demonstrating backend engineering skills. Not current
 
 ## 👤 Author
 
-Built to showcase production-grade backend engineering with zero-cost development.
-
-For questions or collaboration: [Create an issue](https://github.com/yourusername/MasterChef/issues)
+For questions or collaboration: [Create an issue](https://github.com/rpat9/MasterChef/issues)

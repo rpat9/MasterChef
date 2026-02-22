@@ -9,15 +9,13 @@
 
 ## 1. Project Purpose
 
-Build a **production-ready, AI-powered recipe generation backend with JWT authentication** that demonstrates
+Build a **production-ready, AI-powered recipe generation backend with JWT authentication** featuring
 enterprise-level Java/Spring engineering, secure API design, cost-aware LLM orchestration, and
 AWS-ready infrastructure.
 
 **Deployment Strategy**: The system is architected for **AWS ECS deployment** with full production 
 configurations. All AWS services (S3, RDS, CloudWatch, Secrets Manager) are defined via Terraform
-and exercised locally using LocalStack. **The infrastructure is deployment-ready** — anyone can 
-clone this repo and deploy to their own AWS account. The maintainer chooses not to deploy to avoid 
-recurring hosting costs, but the system is **production-grade and cloud-native**.
+and validated locally using LocalStack.
 
 ---
 
@@ -115,7 +113,7 @@ These items are **out of scope** to maintain engineering focus.
 | Database         | PostgreSQL 16                | Production RDBMS with JSON support and reliability     |
 | Migrations       | Flyway                       | Version-controlled, SQL-native schema evolution        |
 | LLM Runtime      | Ollama (Mistral 7B)          | Free, local inference; no API keys required            |
-| Object Storage   | S3 via LocalStack            | Proves AWS SDK competency without real AWS costs       |
+| Object Storage   | S3 via LocalStack            | AWS SDK v2 integration with S3                         |
 | Resilience       | Resilience4j                 | Circuit breaker, retry, rate limiter patterns          |
 | API Docs         | Springdoc OpenAPI 3          | Auto-generated Swagger UI                              |
 | Observability    | Actuator + Micrometer        | Metrics, health checks, Prometheus-compatible          |
